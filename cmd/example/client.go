@@ -25,6 +25,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/tools/clientcmd"
 
+	"github.com/jaegertracing/jaeger/model"
+	jsonConv "github.com/jaegertracing/jaeger/model/converter/json"
+	_ "github.com/jaegertracing/jaeger/proto-gen/api_v2"
+
 	versionedclient "istio.io/client-go/pkg/clientset/versioned"
 )
 
@@ -92,5 +96,13 @@ func main() {
 		for _, h := range se.Spec.GetHosts() {
 			log.Printf("Index: %d ServiceEntry hosts: %+v\n", i, h)
 		}
+	}
+
+	// Dummy code, just to force the import
+	if false {
+		model.TraceIDFromString("")
+		t := jsonConv.FromDomain(nil)
+		id := t.TraceID
+		log.Printf("id #{s}", id)
 	}
 }
